@@ -1,7 +1,12 @@
-import { Child } from './Child'
+import { ChildasFC } from './Child'
 
 const Parent = () => {
-  return <Child color="magenta" />
+  const buttonCallback = () => alert('Clicked!')
+  return (
+    <ChildasFC color="magenta" onClick={buttonCallback}>
+      Some text
+    </ChildasFC>
+  )
 }
 
 export default Parent
