@@ -1,10 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const App: React.FC = () => {
-  return <div>Redux with Typescript</div>
-}
-
-export default App
+import App from './components/App'
 
 ReactDOM.render(<App />, document.getElementById('root'))
