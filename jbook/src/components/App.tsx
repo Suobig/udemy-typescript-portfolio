@@ -1,6 +1,7 @@
 import { FC, useState, useEffect, useRef } from 'react'
 import * as esbuild from 'esbuild-wasm'
-import { unpkgPathPlugin } from '../plugins/unpkg-path-plugin'
+import unpkgPathPlugin from '../plugins/unpkgPathPlugin'
+import fetchPlugin from '../plugins/fetchPlugin'
 
 const App: FC = () => {
   const [input, setInput] = useState('')
@@ -16,7 +17,7 @@ const App: FC = () => {
       bundle: true,
       write: false,
       entryPoints: ['index.js'],
-      plugins: [unpkgPathPlugin()],
+      plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
         'process.env.NODE_ENV': '"production"',
         global: 'window',
