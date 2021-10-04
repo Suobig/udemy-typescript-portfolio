@@ -11,8 +11,6 @@ const fetchPlugin = (inputCode: string): esbuild.Plugin => {
     name: 'fetch-plugin',
     setup(build) {
       build.onLoad({ filter: /.*/ }, async (args: any) => {
-        console.log('onLoad', args)
-
         if (args.path === 'index.js') {
           return {
             loader: 'jsx',
@@ -22,11 +20,18 @@ const fetchPlugin = (inputCode: string): esbuild.Plugin => {
 
         const cachedPackageData =
           await packageCache.getItem<esbuild.OnLoadResult>(args.path)
+
         if (cachedPackageData) {
           return cachedPackageData
         }
 
         const { data, request } = await axios.get(args.path)
+
+        console.log(args.path)
+
+        // We can't use 'css' loader if we don't output files to a hard drive
+        // that's esBuild limitation
+        // const loader = args.path.match(/\.css/) ? 'css' : 'jsx'
 
         const packageData: esbuild.OnLoadResult = {
           loader: 'jsx',
